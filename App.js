@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, ImageBackground, Pressable, ScrollView, TouchableOpacity, TextInput, FlatList, Button } from 'react-native';
+//import Screen from './Screens';
+import { Icon } from 'react-native-elements'
+import Screen2 from './Screens2';
+
+
+//<Screen />
+
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Sporty React Native</Text>
-      <StatusBar style="auto" />
-    </View>
+  <Screen2 />    
+    
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
 });
