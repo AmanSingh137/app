@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, Pressable, ScrollView, TouchableOpacity, TextInput, FlatList, Button } from 'react-native';
 import Screen from './Screens';
 import { Icon } from 'react-native-elements'
@@ -37,6 +37,29 @@ let DATA = [{
 ]
 
 export default function Screen3() {
+  const [des, setDes] = useState('');
+  const [count, setCount] = useState(0)
+
+  function WordCount(str) {
+    const data = str.split(" ")
+    let n = data.length, c=0
+    for(let i =0; i < n; i++)
+    {
+      if(data[i]==="") continue;
+      else c++;
+    }
+    return c;
+  }
+  const handleChange = (query) => {
+    let n = query.length
+    // if (query[n - 1] === " " && query[n - 2] === " ") {
+
+    // } else {
+      setDes(query)
+      let c = WordCount(query)
+      setCount(c)
+    //}
+  }
 
   const renderItem = ({ item }) => (
     <Text style={{ marginLeft: 5, color: "white", marginTop: 5 }}>{item.text}</Text>
@@ -66,13 +89,17 @@ export default function Screen3() {
         </TouchableOpacity>
       </View>
       <Text style={{ color: "grey", marginLeft: 20 }} >Description</Text>
-      <View style={{ elevation: 2,color: "white",backgroundColor: "rgba(255, 255, 255)", marginTop: 0, width: 380, 
-      borderRadius: 20, marginLeft: 20 }}>
+      <View style={{
+        elevation: 2, color: "white", backgroundColor: "rgba(255, 255, 255)", marginTop: 0, width: 380,
+        borderRadius: 20, marginLeft: 20
+      }}>
         <TextInput style={{
-           color: "white", padding: 15 ,textAlignVertical: "top",
+          color: "white", padding: 15, textAlignVertical: "top",
         }} multiline
-          numberOfLines={6} />
+          numberOfLines={6} onChangeText={handleChange} />
       </View>
+
+      <Text style={{ color: "grey", marginLeft: 20 }}>{count}/50</Text>
       <Pressable style={styles.buttonStyling}>
         <Text
           style={{
@@ -88,11 +115,13 @@ export default function Screen3() {
           Save
         </Text>
       </Pressable>
-      <Text style={{ color: "white", fontSize: 25, marginLeft: 20 }}>Create workout class</Text>
+      <View>
+        <Text style={{ color: "white", fontSize: 25, marginLeft: 20 }}>Create workout class</Text>
+      </View>
       <ScrollView>
         <View style={{
           flexDirection: "row", width: 380, backgroundColor: "rgba(255, 255, 255, 0.4)",
-          height: 150, borderRadius: 10, marginLeft: 20
+          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 15
         }}>
           <Image source={require('./images/image3.jpg')} style={{
             width: 105, borderRadius: 20, marginLeft: 10, marginRight: 20, marginTop: 10,
@@ -174,7 +203,7 @@ export default function Screen3() {
         </View>
         <View style={{
           flexDirection: "row", width: 380, backgroundColor: "rgba(255, 255, 255, 0.4)",
-          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 10
+          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 10, marginBottom: 10
         }}>
           <Image source={require('./images/image3.jpg')} style={{
             width: 105, borderRadius: 20, marginLeft: 10, marginRight: 20, marginTop: 10,
