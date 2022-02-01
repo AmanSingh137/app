@@ -6,43 +6,35 @@ import Favorites from "./Favorites";
 import Profile from "./Profile";
 import { View, Image, Text, ImageBackground } from "react-native";
 import { Button } from "react-native";
+import Screen from '../Screens'
+import Screen2 from "../Screens2";
+import Screen3 from "../Screen3";
+import Screen4 from "../Screen4";
 import { TouchableOpacity } from "react-native";
-//import RadialGradient from 'react-native-radial-gradient';
 
 const Tab = createBottomTabNavigator();
 
 export default function Bottom() {
   return (
-    // <View style={{ marginTop: 130 }}>
-    //   <ImageBackground source={require('../ImportedIcons/down.png')} style={{ width: 420, height: 90, marginBottom: -50 }} />
-      <Tab.Navigator sceneContainerStyle={{ display:"none", backgroundColor: "white" }} screenOptions={
+      <Tab.Navigator screenOptions={
         {
-          tabBarStyle: [
-            {
-              backgroundColor: 'radial-gradient(65.56% 48.76% at 50% 47.11%, #393E46 0%, rgba(57, 62, 70, 0) 100%)',
-              elevation: 2
-            },
-          ],
-          tabBarActiveTintColor: 'white',
-          headerStyle: [
-            {
-              display: 'none'
-            }
-          ]
-        }} >
-        <Tab.Screen name="Home" component={HomeScreen} options={{
+          tabBarActiveTintColor: '#fff',
+          tabBarStyle: {backgroundColor: "#1d2229", borderTopWidth: 0}
+        }}  >
+        <Tab.Screen name="Home" component={Screen} options={{
           tabBarIcon: ({ color, size }) => (
             <Image source={require('../ImportedIcons/home.png')} style={{ tintColor: color, }} />
           ),
           tabBarButton: (props) => { return <TouchableOpacity {...props} /> },
-          
+          headerShown: false, headerTintColor: "white"
         }} />
         <Tab.Screen name="Client" component={ClientScreen} options={{
           tabBarLabel: 'Client',
           tabBarIcon: ({ color, size }) => (
             <Image source={require('../ImportedIcons/client2.png')} style={{ tintColor: color }} />
           ),
-          tabBarButton: (props) => { return <TouchableOpacity {...props} /> }
+          tabBarButton: (props) => { return <TouchableOpacity {...props} /> }, 
+          headerShown: false
         }} />
         <Tab.Screen name="Favorites" component={Favorites} options={{
           tabBarLabel: 'Favorites',

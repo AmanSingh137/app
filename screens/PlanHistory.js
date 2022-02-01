@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
 
 const DATA = [
   {
@@ -26,12 +26,14 @@ const DATA = [
 
 
 const Item = ({ image, text, title }) => (
+  <TouchableOpacity>
   <ImageBackground source={image} resizeMode="cover" style={styles.image}  imageStyle={styles.image}>
   <View style={styles.item}>
    <Text style={styles.text}>{title}</Text>
    <Text style={styles.title}>{text}</Text>
   </View>
   </ImageBackground>
+  </TouchableOpacity>
 );
 
 export default function PlanHistory () {

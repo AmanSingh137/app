@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Pressable,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
 import TopHeader from "./components/TopHeader";
 import Bottom from "./components/Bottom";
@@ -14,6 +15,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import FirstEmpty from "./screens/FirstEmpty";
 import PlanHistory from "./screens/PlanHistory";
 import ClientHistory from "./screens/ClientHistory";
+
 
 export default function Screen() {
   return (
@@ -57,7 +59,7 @@ export default function Screen() {
         />
         {/* <FirstEmpty /> Screen 1 */}
         <PlanHistory />
-        <Pressable style={styles.buttonStyling}>
+        <TouchableOpacity style={styles.buttonStyling}>
           <Text
             style={{
               color: "white",
@@ -71,7 +73,7 @@ export default function Screen() {
           >
             More plans
           </Text>
-        </Pressable>
+        </TouchableOpacity>
         <Text
           style={{
             marginLeft: 20,
@@ -93,7 +95,7 @@ export default function Screen() {
           }}
         />
         <ClientHistory />
-        <Pressable
+        <TouchableOpacity
           style={{
             backgroundColor: "#00ADB566",
             width: 300,
@@ -105,6 +107,7 @@ export default function Screen() {
             shadowColor: "black",
             elevation: 8,
             marginTop: -20,
+            marginBottom: 10
           }}
         >
           <Text
@@ -120,20 +123,18 @@ export default function Screen() {
           >
             All Clients
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </ScrollView>
 
-      <View style={{ backgroundColor: "#393E46", height: 50 }}>
-        <NavigationContainer>
-          <Bottom />
-        </NavigationContainer>
+      <View style={{ backgroundColor: "#393E46", height: 0 }}>
+        
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#393E46", flex: 1, display: "flex" },
+  container: { backgroundColor: "#393E46", flex: 1, },
   text: { color: "white", marginTop: 0, marginLeft: 20, fontSize: 20 },
   buttonStyling: {
     backgroundColor: "#00ADB566",
