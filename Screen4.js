@@ -39,7 +39,7 @@ const days = [
   },
 ]
 
-export default function Screen4() {
+export default function Screen4({navigation}) {
   const renderItems = ({ item }) => (
     <Text style={{color: "white", marginHorizontal: 8, marginTop: 20}}>{item.day}</Text>
   );
@@ -47,7 +47,9 @@ export default function Screen4() {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          navigation.goBack();
+        }}>
           <Text
             style={{
               fontSize: 35,
@@ -72,7 +74,10 @@ export default function Screen4() {
         >
           Select Exercise
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          alert("Workout created!")
+          navigation.navigate('Home')
+        }}>
           <Text
             style={{
               fontSize: 20,
@@ -168,7 +173,10 @@ export default function Screen4() {
               <Icon name="delete" color="white" style={{marginTop: 50}} />
             </View>
       </View>
-      <Pressable style={styles.buttonStyling}>
+      <TouchableOpacity onPress={()=>{
+          alert("Workout created!")
+          navigation.navigate('Home')
+        }} style={styles.buttonStyling}>
         <Text
           style={{
             color: "white",
@@ -182,7 +190,7 @@ export default function Screen4() {
         >
           Next
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
 
   );

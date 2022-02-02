@@ -11,6 +11,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Bottom from './components/Bottom';
 //<Screen />
 //<Screen2 /> 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +23,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen options={{headerShown: false, }}  name="Home" component={Bottom} />
+        <Stack.Screen options={{headerShown: false, }}  name="WorkoutDetail" component={Screen3} />
+        <Stack.Screen options={{headerShown: false, }}  name="WorkoutSelection" component={Screen2} />
+        <Stack.Screen options={{headerShown: false, }}  name="FinalWorkout" component={Screen4} />
       </Stack.Navigator>
     </NavigationContainer>
   );

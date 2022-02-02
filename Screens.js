@@ -17,7 +17,7 @@ import PlanHistory from "./screens/PlanHistory";
 import ClientHistory from "./screens/ClientHistory";
 
 
-export default function Screen() {
+export default function Screen({navigation}) {
   return (
     <View style={styles.container}>
       <TopHeader />
@@ -58,7 +58,7 @@ export default function Screen() {
           }}
         />
         {/* <FirstEmpty /> Screen 1 */}
-        <PlanHistory />
+        <PlanHistory navigation={navigation} />
         <TouchableOpacity style={styles.buttonStyling}>
           <Text
             style={{

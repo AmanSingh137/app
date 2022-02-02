@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
 
 const DATA = [
@@ -22,30 +22,48 @@ const DATA = [
   }
 ];
 
-//const image = require('../images/Workout2.png')
+export default function PlanHistory ({navigation}) {
+  
+  const renderItem = ({ item }) => {
+    item.image === undefined ? require("../images/Workout3.png") : item.image
+    return <TouchableOpacity onPress={()=>{
+      navigation.navigate('WorkoutDetail', {
+        title: item.name,
+        text: item.description,
+        image: item.image,
+        id: item.id
+      })
+    }}>
+    <ImageBackground source={item.image} resizeMode="cover" style={styles.image}  imageStyle={styles.image}>
+    <View style={styles.item}>
+     <Text style={styles.text}>{item.name}</Text>
+     <Text style={styles.title}>{item.description}</Text>
+    </View>
+    </ImageBackground>
+    </TouchableOpacity>
+  };
+  const [newData, setNewData] = useState(DATA)
 
+  const getPlanList = async () => {
+      try {
+        const response = await fetch('http://3.17.135.71:8000/api/plan/get_all_plans/');
+        const json = await response.json();
+        setNewData(json);
+      } catch (error) {
+        console.error(error);
+      } 
+  }
 
-const Item = ({ image, text, title }) => (
-  <TouchableOpacity>
-  <ImageBackground source={image} resizeMode="cover" style={styles.image}  imageStyle={styles.image}>
-  <View style={styles.item}>
-   <Text style={styles.text}>{title}</Text>
-   <Text style={styles.title}>{text}</Text>
-  </View>
-  </ImageBackground>
-  </TouchableOpacity>
-);
+  useEffect(() => {
+    getPlanList();
+  }, []);
 
-export default function PlanHistory () {
-  const renderItem = ({ item }) => (
-    <Item image={item.image} text={item.text} title={item.title} />
-  );
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         horizontal
-        data={DATA}
+        data={newData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

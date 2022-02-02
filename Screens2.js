@@ -67,7 +67,7 @@ const Item = ({ image, title }) => (
   </ImageBackground>
 );
 
-export default function Screen2() {
+export default function Screen2({navigation}) {
   const [data, setData] = useState(DATA);
   const [searchString, setSearchString] = useState("");
   
@@ -102,7 +102,9 @@ export default function Screen2() {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          navigation.goBack();
+        }}>
           <Text
             style={{
               fontSize: 35,
@@ -127,7 +129,9 @@ export default function Screen2() {
         >
           Select Exercise
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          navigation.navigate('FinalWorkout')
+        }}>
           <Text
             style={{
               fontSize: 20,
@@ -172,7 +176,9 @@ export default function Screen2() {
           keyExtractor={(item) => item.id}
         />
       </ScrollView>
-      <Pressable style={styles.buttonStyling}>
+      <TouchableOpacity onPress={()=>{
+          navigation.navigate('FinalWorkout')
+        }} style={styles.buttonStyling} >
         <Text
           style={{
             color: "white",
@@ -186,7 +192,7 @@ export default function Screen2() {
         >
           Add Exercise
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }

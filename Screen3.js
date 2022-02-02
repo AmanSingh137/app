@@ -36,9 +36,10 @@ let DATA = [{
 }
 ]
 
-export default function Screen3() {
-  const [des, setDes] = useState('');
-  const [count, setCount] = useState(0)
+export default function Screen3({navigation, route}) {
+  const { id, text, title, image } = route.params;
+  const [des, setDes] = useState(text);
+  const [count, setCount] = useState(WordCount(text));
 
   function WordCount(str) {
     const data = str.split(" ")
@@ -52,13 +53,9 @@ export default function Screen3() {
   }
   const handleChange = (query) => {
     let n = query.length
-    // if (query[n - 1] === " " && query[n - 2] === " ") {
-
-    // } else {
       setDes(query)
       let c = WordCount(query)
       setCount(c)
-    //}
   }
 
   const renderItem = ({ item }) => (
@@ -67,12 +64,16 @@ export default function Screen3() {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          navigation.goBack();
+        }}>
           <Text style={{ fontSize: 30, color: "white", fontWeight: "bold", marginTop: 30, marginLeft: 20 }}>&lt;</Text>
         </TouchableOpacity>
         <Text style={{ fontSize: 20, color: "white", flexDirection: "row", marginTop: 38, marginLeft: 65, fontFamily: 'Rambla_400Regular' }}>
           Create workout class</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          navigation.navigate('WorkoutSelection');
+        }}>
           <Text style={{ fontSize: 18, color: "white", flexDirection: "row", marginTop: 39, marginLeft: 40, fontFamily: 'Rambla_400Regular' }}>
             Skip</Text>
         </TouchableOpacity>
@@ -81,6 +82,7 @@ export default function Screen3() {
       <TextInput
         style={styles.input}
         underlineColorAndroid="grey"
+        value={title}
       />
 
       <View style={{ backgroundColor: "rgba(255, 255, 255, 0.4)", width: 120, height: 120, marginLeft: 280, marginTop: -50, borderRadius: 25 }}>
@@ -88,6 +90,7 @@ export default function Screen3() {
           <Icon name="add" color="white" size={40} style={{ marginTop: 30 }} />
         </TouchableOpacity>
       </View>
+     
       <Text style={{ color: "grey", marginLeft: 20 }} >Description</Text>
       <View style={{
         elevation: 2, color: "white", backgroundColor: "rgba(255, 255, 255)", marginTop: 0, width: 380,
@@ -95,12 +98,12 @@ export default function Screen3() {
       }}>
         <TextInput style={{
           color: "white", padding: 15, textAlignVertical: "top",
-        }} multiline
+        }} multiline value={text}
           numberOfLines={6} onChangeText={handleChange} />
       </View>
 
       <Text style={{ color: "grey", marginLeft: 20 }}>{count}/50</Text>
-      <Pressable style={styles.buttonStyling}>
+      <TouchableOpacity style={styles.buttonStyling}>
         <Text
           style={{
             color: "white",
@@ -114,7 +117,7 @@ export default function Screen3() {
         >
           Save
         </Text>
-      </Pressable>
+      </TouchableOpacity>
       <View>
         <Text style={{ color: "white", fontSize: 25, marginLeft: 20 }}>Create workout class</Text>
       </View>
@@ -243,10 +246,12 @@ export default function Screen3() {
           />
         </View>
       </ScrollView>
-      <Pressable style={{
+      <TouchableOpacity style={{
         backgroundColor: "#00ADB5ff", width: 380, height: 40, marginLeft: 20, alignContent: "center", justifyContent: "center",
         borderRadius: 30, shadowColor: "black", elevation: 100, marginBottom: 10, marginTop: 750, position: "absolute", opacity: 1
-      }}>
+      }} onPress={()=>{
+          navigation.navigate('WorkoutSelection');
+        }}>
         <Text
           style={{
             color: "white",
@@ -260,7 +265,7 @@ export default function Screen3() {
         >
           Add Exercise
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
