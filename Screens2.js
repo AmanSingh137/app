@@ -47,30 +47,14 @@ let DATA = [
     title: "Back",
   },
 ];
-const Item = ({ image, title }) => (
-  <ImageBackground
-    source={image}
-    resizeMode="cover"
-    style={styles.image}
-    imageStyle={styles.image}
-  >
-    <View style={styles.item}>
-      <BouncyCheckbox
-        size={15}
-        fillColor="green"
-        unfillColor="#FFFFFF"
-        iconStyle={{ borderColor: "white" }}
-        style={{ marginLeft: 90, marginBottom: -20 }}
-      />
-      <Text style={styles.text}>{title}</Text>
-    </View>
-  </ImageBackground>
-);
 
-export default function Screen2({navigation}) {
+export default function Screen2({ navigation }) {
+  const [checkBoxState, setCheckBoxState] = useState(false);
   const [data, setData] = useState(DATA);
+  const [num, setNum] = useState(0)
+  const [sendingData, setSendingData] = useState([])
   const [searchString, setSearchString] = useState("");
-  
+
   const handleSearchBar = (query) => {
     setSearchString(query);
     if (searchString.length > 0) {
@@ -86,23 +70,71 @@ export default function Screen2({navigation}) {
     }
   };
 
- 
 
-  const [loaded] = useFonts({
-    Rambla: require("./assets/fonts/Rambla-Regular.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
   const renderItem = ({ item }) => (
-    <Item image={item.image} title={item.title} />
+    <TouchableOpacity onPress={() => {
+      const found = sendingData.find(element => element.id === item.id)
+      if (found !== undefined) {
+        const newObj = sendingData.filter((items) => items.id !== item.id)
+        setSendingData(newObj)
+        setNum(num - 1)
+      } else {
+        setNum(num + 1)
+        const obj = { id: item.id, image: item.image, title: item.title }
+        setSendingData([...sendingData, obj])
+      }
+      setCheckBoxState(!checkBoxState);
+      console.log((() => {
+        return sendingData.some((value) => {
+          return value.id === item.id
+        })
+      })())
+    }}>
+      <ImageBackground
+        source={item.image}
+        resizeMode="cover"
+        style={styles.image}
+        imageStyle={styles.image}
+      >
+        <View style={styles.item}>
+          <BouncyCheckbox
+            size={15}
+            onPress={() => {
+              const found = sendingData.find(element => element.id === item.id)
+              if (found !== undefined) {
+                const newObj = sendingData.filter((items) => items.id !== item.id)
+                setSendingData(newObj)
+                setNum(num - 1)
+              } else {
+                setNum(num + 1)
+                const obj = { id: item.id, image: item.image, title: item.title }
+                setSendingData([...sendingData, obj])
+              }
+              setCheckBoxState(!checkBoxState);
+            }}
+            isChecked={
+              (() => {
+                return sendingData.some((value) => {
+                  return value.id === item.id
+                })
+              })()
+            }
+            disableBuiltInState={true}
+            fillColor="grey"
+            unfillColor="#FFFFFF"
+            iconStyle={{ borderColor: "white" }}
+            style={{ marginLeft: 90, marginTop: 20 }}
+          />
+          <Text style={styles.text}>{item.title}</Text>
+        </View>
+      </ImageBackground>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={()=>{
+        <TouchableOpacity onPress={() => {
           navigation.goBack();
         }}>
           <Text
@@ -129,7 +161,7 @@ export default function Screen2({navigation}) {
         >
           Select Exercise
         </Text>
-        <TouchableOpacity onPress={()=>{
+        <TouchableOpacity onPress={() => {
           navigation.navigate('FinalWorkout')
         }}>
           <Text
@@ -168,29 +200,23 @@ export default function Screen2({navigation}) {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
-        <FlatList
-          contentContainerStyle={{ alignSelf: "flex-start", marginBottom: 10 }}
-          numColumns={3}
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+
       </ScrollView>
-      <TouchableOpacity onPress={()=>{
-          navigation.navigate('FinalWorkout')
-        }} style={styles.buttonStyling} >
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('FinalWorkout', sendingData)
+      }} style={styles.buttonStyling} >
         <Text
           style={{
             color: "white",
             fontWeight: "bold",
             fontSize: 20,
-            marginLeft: 90,
+            alignSelf: "center",
             textShadowColor: "#000",
             textShadowOffset: { width: 1, height: 1 },
             textShadowRadius: 1,
           }}
         >
-          Add Exercise
+          {num > 0 ? "Save" : "Add Exercise"}
         </Text>
       </TouchableOpacity>
     </View>
@@ -222,6 +248,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  item: {
+    flex: 1,
+    justifyContent: "space-between",
+    flexDirection: "column"
+  },
 
   image: {
     width: 105,
@@ -230,14 +261,13 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginTop: 10,
     height: 150,
-    justifyContent: "center",
     marginBottom: 10,
   },
 
   text: {
     color: "white",
     fontSize: 16,
-    marginTop: 100,
+    alignSelf: "flex-start",
     fontWeight: "bold",
     marginLeft: 12,
     textShadowColor: "#00ADB566",

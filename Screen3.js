@@ -38,6 +38,7 @@ let DATA = [{
 
 export default function Screen3({navigation, route}) {
   const { id, text, title, image } = route.params;
+  const [newText, setNewText] = useState(text)
   const [des, setDes] = useState(text);
   const [count, setCount] = useState(WordCount(text));
 
@@ -52,6 +53,7 @@ export default function Screen3({navigation, route}) {
     return c;
   }
   const handleChange = (query) => {
+    setNewText(query)
     let n = query.length
       setDes(query)
       let c = WordCount(query)
@@ -92,17 +94,14 @@ export default function Screen3({navigation, route}) {
       </View>
      
       <Text style={{ color: "grey", marginLeft: 20 }} >Description</Text>
-      <View style={{
-        elevation: 2, color: "white", backgroundColor: "rgba(255, 255, 255)", marginTop: 0, width: 380,
-        borderRadius: 20, marginLeft: 20
-      }}>
+      <View style={{elevation: 2, color: "white", backgroundColor: "grey",borderRadius: 20, marginHorizontal: 20}}>
         <TextInput style={{
           color: "white", padding: 15, textAlignVertical: "top",
-        }} multiline value={text}
+        }} multiline value={newText}
           numberOfLines={6} onChangeText={handleChange} />
       </View>
 
-      <Text style={{ color: "grey", marginLeft: 20 }}>{count}/50</Text>
+      <Text style={{ color: "white", marginLeft: 20 }}>{count}/50</Text>
       <TouchableOpacity style={styles.buttonStyling}>
         <Text
           style={{
@@ -122,129 +121,7 @@ export default function Screen3({navigation, route}) {
         <Text style={{ color: "white", fontSize: 25, marginLeft: 20 }}>Create workout class</Text>
       </View>
       <ScrollView>
-        <View style={{
-          flexDirection: "row", width: 380, backgroundColor: "rgba(255, 255, 255, 0.4)",
-          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 15
-        }}>
-          <Image source={require('./images/image3.jpg')} style={{
-            width: 105, borderRadius: 20, marginLeft: 10, marginRight: 20, marginTop: 10,
-            height: 120, justifyContent: "center"
-          }} />
-          <View style={{ width: 80 }}>
-            <Text style={{ fontWeight: "bold", color: "white", fontSize: 16 }}>Abs</Text>
-            <Text style={{ color: "white", fontSize: 10 }}>Lorem ipsum dolor sit amet, consectetur adipiscing
-              sed do eiusmod tempor incididunt</Text>
-
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', }}></View>
-          <View style={{ width: 70 }}>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Set</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -2, marginTop: 11, fontSize: 13 }} >10-15</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rep</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >12-16</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rest</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >30-40s</Text>
-            </View>
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', marginLeft: 30 }}></View>
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            numColumns={2}
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-        <View style={{
-          flexDirection: "row", width: 380, backgroundColor: "rgba(255, 255, 255, 0.4)",
-          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 10
-        }}>
-          <Image source={require('./images/image3.jpg')} style={{
-            width: 105, borderRadius: 20, marginLeft: 10, marginRight: 20, marginTop: 10,
-            height: 120, justifyContent: "center"
-          }} />
-          <View style={{ width: 80 }}>
-            <Text style={{ fontWeight: "bold", color: "white", fontSize: 16 }}>Abs</Text>
-            <Text style={{ color: "white", fontSize: 10 }}>Lorem ipsum dolor sit amet, consectetur adipiscing
-              sed do eiusmod tempor incididunt</Text>
-
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', }}></View>
-          <View style={{ width: 70 }}>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Set</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -2, marginTop: 11, fontSize: 13 }} >10-15</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rep</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >12-16</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rest</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >30-40s</Text>
-            </View>
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', marginLeft: 30 }}></View>
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            numColumns={2}
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-        <View style={{
-          flexDirection: "row", width: 380, backgroundColor: "rgba(255, 255, 255, 0.4)",
-          height: 150, borderRadius: 10, marginLeft: 20, marginTop: 10, marginBottom: 10
-        }}>
-          <Image source={require('./images/image3.jpg')} style={{
-            width: 105, borderRadius: 20, marginLeft: 10, marginRight: 20, marginTop: 10,
-            height: 120, justifyContent: "center"
-          }} />
-          <View style={{ width: 80 }}>
-            <Text style={{ fontWeight: "bold", color: "white", fontSize: 16 }}>Abs</Text>
-            <Text style={{ color: "white", fontSize: 10 }}>Lorem ipsum dolor sit amet, consectetur adipiscing
-              sed do eiusmod tempor incididunt</Text>
-
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', }}></View>
-          <View style={{ width: 70 }}>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Set</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -2, marginTop: 11, fontSize: 13 }} >10-15</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rep</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >12-16</Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", marginLeft: 5, marginTop: 10 }} >Rest</Text>
-              <Icon name="arrow-right" color="white" style={{ marginLeft: -2, marginTop: 10 }} />
-              <Text style={{ color: "white", marginLeft: -4, marginTop: 11, fontSize: 13 }} >30-40s</Text>
-            </View>
-          </View>
-          <View style={{ height: 130, marginTop: 5, width: 1, backgroundColor: '#000', marginLeft: 30 }}></View>
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            numColumns={2}
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
+        {}
       </ScrollView>
       <TouchableOpacity style={{
         backgroundColor: "#00ADB5ff", width: 380, height: 40, marginLeft: 20, alignContent: "center", justifyContent: "center",
@@ -273,7 +150,7 @@ export default function Screen3({navigation, route}) {
 const styles = StyleSheet.create({
   container: { backgroundColor: '#393E46', flex: 1 },
   input: {
-    backgroundColor: "#393E46", width: 220, marginLeft: 20, height: 40, shadowColor: "#000", shadowOpacity: 0.8,
+    backgroundColor: "#393E46", width: 220, marginHorizontal: 20, height: 40, shadowColor: "#000", shadowOpacity: 0.8,
     color: "white", fontWeight: "bold", fontSize: 20
   },
   buttonStyling: {
