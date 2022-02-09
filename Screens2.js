@@ -1,50 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   TextInput,
   FlatList,
 } from "react-native";
-import { Icon } from "react-native-elements";
-import { useFonts } from "expo-font";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import axios from 'axios'
 
 let DATA = [
   {
     id: 1,
-    image: require("./images/image1.jpg"),
-    title: "Push ups",
+    thumbnail_url: "./images/image1.jpg",
+    name: "Push ups",
   },
   {
     id: 2,
-    image: require("./images/image2.jpg"),
-    title: "Biceps",
+    thumbnail_url: "./images/image2.jpg",
+    name: "Biceps",
   },
   {
     id: 3,
-    image: require("./images/image3.jpg"),
-    title: "Abs",
+    thumbnail_url: "./images/image3.jpg",
+    name: "Abs",
   },
   {
     id: 4,
-    image: require("./images/image4.jpg"),
-    title: "Heavy lifting",
+    thumbnail_url: "./images/image4.jpg",
+    name: "Heavy lifting",
   },
   {
     id: 5,
-    image: require("./images/cardio.jpg"),
-    title: "Cardio",
+    thumbnail_url: "./images/cardio.jpg",
+    name: "Cardio",
   },
   {
     id: 6,
-    image: require("./images/back.jpg"),
-    title: "Back",
+    thumbnail_url: "./images/back.jpg",
+    name: "Back",
   },
 ];
 
@@ -70,9 +68,31 @@ export default function Screen2({ navigation }) {
     }
   };
 
+  const handleEvent = () => {
+    try {
+      axios.get('https://next-stage.hyperfit.live/api/fitness/fitness_exercises/read', {
+        headers: {
+          Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNzU1MDUyLWE2ZGEtNGFkYi1hYzg3LTNlM2I5MjI1ZjIyMCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNjQ0Mjk1OTYwLCJleHAiOjE2NDU1OTE5NjB9.WucJlrWgKWLes1z0w8lTQuBogXSDthMVrry07DUD8DI'
+        }
+      })
+        .then(function (response) {
+          const json = JSON.parse(response.request._response) 
+          setData(json.fitness_exercises);     
+        }) 
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => {
+  useEffect(() => {
+    handleEvent();
+  }, []);
+  
+
+  const renderItem = ({ item }) => {
+    const url = item.thumbnail_url, name= item.name;
+    console.log(url, name, item.thumbnail_url, item.name);
+    return <TouchableOpacity onPress={() => {
       const found = sendingData.find(element => element.id === item.id)
       if (found !== undefined) {
         const newObj = sendingData.filter((items) => items.id !== item.id)
@@ -80,7 +100,7 @@ export default function Screen2({ navigation }) {
         setNum(num - 1)
       } else {
         setNum(num + 1)
-        const obj = { id: item.id, image: item.image, title: item.title }
+        const obj = { id: item.id, image: item.thumbnail_url, title: item.name }
         setSendingData([...sendingData, obj])
       }
       setCheckBoxState(!checkBoxState);
@@ -91,7 +111,7 @@ export default function Screen2({ navigation }) {
       })())
     }}>
       <ImageBackground
-        source={item.image}
+        source={{uri: url}}
         resizeMode="cover"
         style={styles.image}
         imageStyle={styles.image}
@@ -107,7 +127,7 @@ export default function Screen2({ navigation }) {
                 setNum(num - 1)
               } else {
                 setNum(num + 1)
-                const obj = { id: item.id, image: item.image, title: item.title }
+                const obj = { id: item.id, image: url, title: item.name }
                 setSendingData([...sendingData, obj])
               }
               setCheckBoxState(!checkBoxState);
@@ -125,11 +145,11 @@ export default function Screen2({ navigation }) {
             iconStyle={{ borderColor: "white" }}
             style={{ marginLeft: 90, marginTop: 20 }}
           />
-          <Text style={styles.text}>{item.title}</Text>
+          <Text style={styles.text}>{item.name}</Text>
         </View>
       </ImageBackground>
     </TouchableOpacity>
-  );
+  };
 
   return (
     <View style={styles.container}>

@@ -1,15 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from './HomeScreen';
 import ClientScreen from "./ClientScreen";
 import Favorites from "./Favorites";
 import Profile from "./Profile";
-import { View, Image, Text, ImageBackground } from "react-native";
-import { Button } from "react-native";
+import { Image } from "react-native";
 import Screen from '../Screens'
-import Screen2 from "../Screens2";
-import Screen3 from "../Screen3";
-import Screen4 from "../Screen4";
 import { TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
@@ -19,8 +14,9 @@ export default function Bottom() {
       <Tab.Navigator screenOptions={
         {
           tabBarActiveTintColor: '#fff',
-          tabBarStyle: {backgroundColor: "#1d2229", borderTopWidth: 0}
+          tabBarStyle: {backgroundColor: "transparent", borderTopWidth: 0, elevation: 0, position: 'absolute'}
         }}  >
+        {/*#1d2229 */}
         <Tab.Screen name="Home" component={Screen} options={{
           tabBarIcon: ({ color, size }) => (
             <Image source={require('../ImportedIcons/home.png')} style={{ tintColor: color, }} />

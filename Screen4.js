@@ -37,16 +37,16 @@ export default function Screen4({ navigation, route }) {
   const [data, setData] = useState(route.params)
   const [day, setDay] = useState(data.map(()=> {return []}))
   const renderItem = ({ item, index }) => {
-    
+    console.log(item)
     const renderItems = ({ item }) => {
-      return <Text style={{ color: day[index].includes(item.id)? "#00ADB5" : "white", marginHorizontal: 8, marginTop: 20 }}
+      return <Text style={{ color: day[index].includes(item.id) ? "#00ADB5" : "white", marginHorizontal: 8, marginTop: 20 }}
         onPress={() => {
-            setDay(day.map((element, i)=>{
-              if(i===index){
+            setDay(day.map((element, i)=>{ 
+              if(i===index){  
                 return [...element, item.id]
               }
               return element
-            }))
+            }))   
         }}
       >{item.day}</Text>
     }
@@ -55,12 +55,12 @@ export default function Screen4({ navigation, route }) {
       shadowColor: "black", marginBottom: index === data.length - 1 ? 80 : 0
     }}>
       <View>
-        <Image source={item.image} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
+        <Image source={require('./ClientImages/1.jpg')} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
         <Text style={{ color: "white", marginTop: -24, marginLeft: 15, fontWeight: "bold" }}>{item.title}</Text>
       </View>
       <View>
         <View style={{ flexDirection: "row" }}>
-          <View style={{ marginLeft: 25, marginTop: 20 }}>
+          <View style={{ marginLeft: 25, marginTop: 20 }}> 
             <Text style={{ color: "white" }}>Set</Text>
             <TextInput style={{ width: 50 }} underlineColorAndroid="grey" />
           </View>
@@ -85,12 +85,7 @@ export default function Screen4({ navigation, route }) {
       
     </View>
   }
-
-  /* onPress={() => {
-     const newData = data.filter((items) => items.id!==item.id)
-     setData(newData)
-   }}*/
-
+  
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>

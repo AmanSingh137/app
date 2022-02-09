@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, Pressable, ScrollView, TouchableOpacity, TextInput, FlatList, Button } from 'react-native';
-import Screen from './Screens';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, } from 'react-native';
 import { Icon } from 'react-native-elements'
-import Screen2 from './Screens2';
-
-// <Screen2 />
-//<Screen />
 
 let DATA = [{
   id: 1,

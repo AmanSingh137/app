@@ -135,3 +135,24 @@
             </View>
       </View>
 */
+
+
+//bottom.js
+/*<RadialGradient
+      colors={['black', '#393E36', 'grey']}
+      stops={[0, 0.5, 1]}
+      image={
+        <ImageBackgroundPlaceholder style={imageStyle}>
+          
+        </ImageBackgroundPlaceholder>
+      }
+    />*/
+
+/*
+APIs Required:
+1. get plan detail 
+2. get all plan 
+3. add plan 
+4. fitness exercise read
+5. Add exercise plan
+*/
