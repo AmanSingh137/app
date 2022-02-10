@@ -37,7 +37,7 @@ export default function Screen4({ navigation, route }) {
   const [data, setData] = useState(route.params)
   const [day, setDay] = useState(data.map(()=> {return []}))
   const renderItem = ({ item, index }) => {
-    console.log(item)
+    console.log(item) 
     const renderItems = ({ item }) => {
       return <Text style={{ color: day[index].includes(item.id) ? "#00ADB5" : "white", marginHorizontal: 8, marginTop: 20 }}
         onPress={() => {
@@ -55,7 +55,7 @@ export default function Screen4({ navigation, route }) {
       shadowColor: "black", marginBottom: index === data.length - 1 ? 80 : 0
     }}>
       <View>
-        <Image source={require('./ClientImages/1.jpg')} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
+        <Image source={{uri: item.image}} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
         <Text style={{ color: "white", marginTop: -24, marginLeft: 15, fontWeight: "bold" }}>{item.title}</Text>
       </View>
       <View>
