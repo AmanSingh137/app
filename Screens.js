@@ -3,21 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  ImageBackground,
-  Pressable,
   ScrollView,
   TouchableOpacity
 } from "react-native";
 import TopHeader from "./components/TopHeader";
-import Bottom from "./components/Bottom";
-import { NavigationContainer } from "@react-navigation/native";
-import FirstEmpty from "./screens/FirstEmpty";
 import PlanHistory from "./screens/PlanHistory";
 import ClientHistory from "./screens/ClientHistory";
 
 
-export default function Screen({navigation}) {
+export default function Screen({ navigation }) {
   return (
     <View style={styles.container}>
       <TopHeader />
@@ -125,10 +119,8 @@ export default function Screen({navigation}) {
           </Text>
         </TouchableOpacity>
       </ScrollView>
+     
 
-      <View style={{ backgroundColor: "#393E46", height: 0 }}>
-        
-      </View>
     </View>
   );
 }

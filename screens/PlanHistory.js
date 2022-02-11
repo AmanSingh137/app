@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios'
 
 const DATA = [
@@ -47,8 +47,6 @@ export default function PlanHistory({ navigation }) {
 
   const getPlanList = async () => {
     try {
-      //const response = await fetch('http://3.17.135.71:8000/api/plan/get_all_plans/');
-      //const json = await response.json();
       axios.get('https://next-stage.hyperfit.live/api/fitness/plan/get_all_plan', {
         headers: {
           Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNzU1MDUyLWE2ZGEtNGFkYi1hYzg3LTNlM2I5MjI1ZjIyMCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNjQ0Mjk1OTYwLCJleHAiOjE2NDU1OTE5NjB9.WucJlrWgKWLes1z0w8lTQuBogXSDthMVrry07DUD8DI'
@@ -56,10 +54,8 @@ export default function PlanHistory({ navigation }) {
       })
         .then(function (response) {
           const json = response.data.data;
-          //console.log(json);
           setNewData(json);
         })
-      //setNewData(json);
     } catch (error) {
       console.error(error);
     }

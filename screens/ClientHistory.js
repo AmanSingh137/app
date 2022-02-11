@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground, Image } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Image } from 'react-native';
 
 const DATA = [
   {
@@ -32,9 +32,6 @@ const DATA = [
     text: "Client 6"
   }, 
 ];
-
-//const image = require('../images/Workout2.png')
-
 
 const Item = ({ image, text}) => (
   <View style={styles.item}>

@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Bottom from './components/Bottom';
 import { LogBox } from 'react-native';
+
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
 

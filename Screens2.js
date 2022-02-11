@@ -204,7 +204,6 @@ export default function Screen2({ navigation }) {
           placeholder="Enter exercise name"
           onChangeText={handleSearchBar}
         />
-        {/* <Text>{searchString}</Text> */}
         <TouchableOpacity>
           <Image
             source={require("./ImportedIcons/Icon.png")}

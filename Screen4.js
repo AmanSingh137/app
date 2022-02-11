@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, Pressable, ScrollView, TouchableOpacity, TextInput, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 const days = [
@@ -37,7 +37,7 @@ export default function Screen4({ navigation, route }) {
   const [data, setData] = useState(route.params)
   const [day, setDay] = useState(data.map(()=> {return []}))
   const renderItem = ({ item, index }) => {
-    console.log(item) 
+    //console.log(item) 
     const renderItems = ({ item }) => {
       return <Text style={{ color: day[index].includes(item.id) ? "#00ADB5" : "white", marginHorizontal: 8, marginTop: 20 }}
         onPress={() => {
