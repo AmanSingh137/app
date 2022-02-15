@@ -7,6 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Bottom from './components/Bottom';
 import { LogBox } from 'react-native';
+import About from './About';
+import AboutUser from './AboutUser'
 
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
@@ -19,6 +21,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen options={{headerShown: false, }}  name="Home" component={Bottom} />
+        <Stack.Screen options={{headerShown: false, }}  name="About" component={About} />
+        <Stack.Screen options={{headerShown: false, }}  name="UserDetails" component={AboutUser} />
         <Stack.Screen options={{headerShown: false, }}  name="WorkoutDetail" component={Screen3} />
         <Stack.Screen options={{headerShown: false, }}  name="WorkoutSelection" component={Screen2} />
         <Stack.Screen options={{headerShown: false, }}  name="FinalWorkout" component={Screen4} />
@@ -28,6 +32,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {backgroundColor: "#393E46", flex: 1, fontFamily: "Rambla"},
+  container: {backgroundColor: "#393E46", flex: 1,},
   
 });

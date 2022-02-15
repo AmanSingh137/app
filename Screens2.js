@@ -46,7 +46,8 @@ let DATA = [
   },
 ];
 
-export default function Screen2({ navigation }) {
+export default function Screen2({ navigation, route }) {
+  const {id} = route.params
   const [checkBoxState, setCheckBoxState] = useState(false);
   const [data, setData] = useState(DATA);
   const [num, setNum] = useState(0)
@@ -86,6 +87,7 @@ export default function Screen2({ navigation }) {
 
   useEffect(() => {
     handleEvent();
+    
   }, []);
   
 
@@ -176,7 +178,7 @@ export default function Screen2({ navigation }) {
             flexDirection: "row",
             marginTop: 33,
             marginLeft: 90,
-            fontFamily: "Rambla",
+            
           }}
         >
           Select Exercise
@@ -191,7 +193,7 @@ export default function Screen2({ navigation }) {
               flexDirection: "row",
               marginTop: 39,
               marginLeft: 45,
-              fontFamily: "Rambla",
+              
             }}
           >
             Skip
@@ -222,7 +224,7 @@ export default function Screen2({ navigation }) {
 
       </ScrollView>
       <TouchableOpacity onPress={() => {
-        navigation.navigate('FinalWorkout', sendingData)
+        navigation.navigate('FinalWorkout', {data: sendingData, plan_id: id})
       }} style={styles.buttonStyling} >
         <Text
           style={{
@@ -243,7 +245,7 @@ export default function Screen2({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#393E46", flex: 1, fontFamily: "Rambla" },
+  container: { backgroundColor: "#393E46", flex: 1, },
 
   input: {
     height: 40,

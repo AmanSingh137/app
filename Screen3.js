@@ -66,12 +66,12 @@ export default function Screen3({navigation, route}) {
         }}>
           <Text style={{ fontSize: 30, color: "white", fontWeight: "bold", marginTop: 30, marginLeft: 20 }}>&lt;</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, color: "white", flexDirection: "row", marginTop: 38, marginLeft: 65, fontFamily: 'Rambla_400Regular' }}>
+        <Text style={{ fontSize: 20, color: "white", flexDirection: "row", marginTop: 38, marginLeft: 65,  }}>
           Create workout class</Text>
         <TouchableOpacity onPress={()=>{
           navigation.navigate('WorkoutSelection');
         }}>
-          <Text style={{ fontSize: 18, color: "white", flexDirection: "row", marginTop: 39, marginLeft: 40, fontFamily: 'Rambla_400Regular' }}>
+          <Text style={{ fontSize: 18, color: "white", flexDirection: "row", marginTop: 39, marginLeft: 40,  }}>
             Skip</Text>
         </TouchableOpacity>
       </View>
@@ -122,7 +122,7 @@ export default function Screen3({navigation, route}) {
         backgroundColor: "#00ADB5ff", width: 380, height: 40, marginLeft: 20, alignContent: "center", justifyContent: "center",
         borderRadius: 30, shadowColor: "black", elevation: 100, marginBottom: 10, marginTop: 750, position: "absolute", opacity: 1
       }} onPress={()=>{
-          navigation.navigate('WorkoutSelection');
+          navigation.navigate('WorkoutSelection', {id: id});
         }}>
         <Text
           style={{

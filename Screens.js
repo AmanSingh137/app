@@ -14,7 +14,7 @@ import ClientHistory from "./screens/ClientHistory";
 export default function Screen({ navigation }) {
   return (
     <View style={styles.container}>
-      <TopHeader />
+      <TopHeader navigation={navigation} />
       <ScrollView>
         <Text style={styles.text}>Hi User!</Text>
         <Text
@@ -23,7 +23,6 @@ export default function Screen({ navigation }) {
             color: "white",
             fontSize: 16,
             marginBottom: 30,
-            fontFamily: "Rambla-Regular",
           }}
         >
           Welcome to{" "}

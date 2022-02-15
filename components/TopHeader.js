@@ -1,8 +1,10 @@
 import { View, TouchableOpacity } from "react-native";
 import React from "react";
-export default function TopHeader() {
+export default function TopHeader({navigation}) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>{
+      navigation.navigate('About');
+    }}>
       <View
         style={{
           borderBottomColor: "white",

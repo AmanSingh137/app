@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements'
+//import uuid from 'react-native-uuid'
+import axios from 'axios';
 
 const days = [
   {
@@ -34,19 +36,46 @@ const days = [
 ]
 
 export default function Screen4({ navigation, route }) {
-  const [data, setData] = useState(route.params)
-  const [day, setDay] = useState(data.map(()=> {return []}))
+  const [data, setData] = useState(route.params.data)
+  const [day, setDay] = useState(data.map(() => { return [] })) //
+  const [sets, setSets] = useState(data.map(() => { return '' }))//
+  const [reps, setReps] = useState(data.map(() => { return '' }))//
+  const [rest, setRest] = useState(data.map(() => { return '' })) //
+  const [images, setImages] = useState(data.map(() => { return '' })) //
+  const [ID, setIDs] = useState(data.map(() => { return 0 })) //
+  const [titles, setTitles] = useState(data.map(() => { return '' })) //
+
+  let n = route.params.data.length
+  const handleChanges = () => {
+    setIDs(ID.map((value, i) => {
+      return data[i].id
+    }))
+    setImages(images.map((value, i) => {
+      return data[i].image
+    }))
+    setTitles(titles.map((value, i) => {
+      return data[i].title
+    }))
+  }
+
+  useEffect(() => {
+    handleChanges();
+  }, [])
+
+
   const renderItem = ({ item, index }) => {
-    //console.log(item) 
     const renderItems = ({ item }) => {
       return <Text style={{ color: day[index].includes(item.id) ? "#00ADB5" : "white", marginHorizontal: 8, marginTop: 20 }}
         onPress={() => {
-            setDay(day.map((element, i)=>{ 
-              if(i===index){  
-                return [...element, item.id]
+          setDay(day.map((element, i) => {
+            if (i === index) {
+              if (element.includes(item.id)) {
+                return element.filter((j) => j !== item.id)
               }
-              return element
-            }))   
+              return [...element, item.id]
+            }
+            return element
+          }))
         }}
       >{item.day}</Text>
     }
@@ -55,22 +84,38 @@ export default function Screen4({ navigation, route }) {
       shadowColor: "black", marginBottom: index === data.length - 1 ? 80 : 0
     }}>
       <View>
-        <Image source={{uri: item.image}} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
+        <Image source={{ uri: item.image }} style={{ width: 100, height: 90, marginTop: 15, marginLeft: 9, borderRadius: 20 }} />
         <Text style={{ color: "white", marginTop: -24, marginLeft: 15, fontWeight: "bold" }}>{item.title}</Text>
       </View>
       <View>
         <View style={{ flexDirection: "row" }}>
-          <View style={{ marginLeft: 25, marginTop: 20 }}> 
+          <View style={{ marginLeft: 25, marginTop: 20 }}>
             <Text style={{ color: "white" }}>Set</Text>
-            <TextInput style={{ width: 50 }} underlineColorAndroid="grey" />
+            <TextInput style={{ width: 50, color: 'white' }} value={sets[index]} underlineColorAndroid="grey" onChangeText={(query) => {
+              setSets(sets.map((value, i) => {
+                if (i === index) return query;
+                return value;
+              }))
+            }} />
+
           </View>
           <View style={{ marginLeft: 12, marginTop: 20 }}>
             <Text style={{ color: "white" }}>Reps</Text>
-            <TextInput style={{ width: 50 }} underlineColorAndroid="grey" />
+            <TextInput style={{ width: 50, color: '#fff' }} value={reps[index]} underlineColorAndroid="grey" onChangeText={(query) => {
+              setReps(reps.map((value, i) => {
+                if (i === index) return query;
+                return value;
+              }))
+            }} />
           </View>
           <View style={{ marginLeft: 12, marginTop: 20 }}>
             <Text style={{ color: "white" }}>Rest</Text>
-            <TextInput style={{ width: 50 }} underlineColorAndroid="grey" />
+            <TextInput style={{ width: 50, color: '#fff' }} value={rest[index]} underlineColorAndroid="grey" onChangeText={(query) => {
+              setRest(rest.map((value, i) => {
+                if (i === index) return query;
+                return value;
+              }))
+            }} />
           </View>
         </View>
         <FlatList style={{ marginLeft: 20 }} horizontal data={days} renderItem={renderItems} keyExtractor={(item) => item.id} />
@@ -82,10 +127,10 @@ export default function Screen4({ navigation, route }) {
         }}
         />
       </View>
-      
+
     </View>
   }
-  
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
@@ -111,12 +156,12 @@ export default function Screen4({ navigation, route }) {
             flexDirection: "row",
             marginTop: 33,
             marginLeft: 80,
-            fontFamily: "Rambla",
           }}
         >
           Select Exercise
         </Text>
         <TouchableOpacity onPress={() => {
+          console.log(ID, titles, images);
           alert("Workout created!")
           navigation.navigate('Home')
         }}>
@@ -127,22 +172,44 @@ export default function Screen4({ navigation, route }) {
               flexDirection: "row",
               marginTop: 39,
               marginLeft: 45,
-              fontFamily: "Rambla",
             }}
           >
             Skip
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <FlatList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} />
       </View>
       <TouchableOpacity onPress={() => {
-        alert("Workout created!")
+        let arr = [];
+        for (let i = 0; i < n; i++) {
+          let cons = ""
+          for (let j = 0; j < day[i].length; j++) {
+            cons += day[i][j]
+            if(j!==day[i].length-1) cons += ","
+          }
+          let newObj = {
+            plan_id: route.params.plan_id,
+            exercise_id: ID[i], periodicity: "5",
+            minsets: sets[i], minreps: reps[i], mintime: rest[i],
+            day: cons
+          }
+          arr.push(newObj);
+        }
+        console.log(JSON.stringify(arr));
+        axios.post('https://next-stage.hyperfit.live/api/trainer/add_exercise_plan', JSON.stringify(arr), {
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNzU1MDUyLWE2ZGEtNGFkYi1hYzg3LTNlM2I5MjI1ZjIyMCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNjQ0Mjk2NjMzLCJleHAiOjE2NDU1OTI2MzN9.FYTXjFkbg64dv6i8tIgXPWCC971WDiAnboKoIXN6WNI',
+          },
+        })
+          .then((Response) => console.log(Response))
+          .catch((err) => console.log(err))
         navigation.navigate('Home')
       }} style={styles.buttonStyling}>
         <Text
-          style={{ 
+          style={{
             color: "white",
             fontWeight: "bold",
             fontSize: 20,
@@ -161,7 +228,7 @@ export default function Screen4({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#393E46", flex: 1, fontFamily: "Rambla" },
+  container: { backgroundColor: "#393E46", flex: 1, },
   buttonStyling: {
     backgroundColor: "#00ADB566", width: 350, height: 40, marginLeft: 30, alignContent: "center", justifyContent: "center",
     borderRadius: 30, shadowColor: "black", elevation: 8, marginTop: 250, position: "absolute", marginTop: 760
