@@ -87,7 +87,7 @@ export default function Screen({ navigation }) {
             marginTop: 10,
           }}
         />
-        <ClientHistory />
+        <ClientHistory navigation={navigation} />
         <TouchableOpacity
           style={{
             backgroundColor: "#00ADB566",

@@ -9,6 +9,10 @@ import Bottom from './components/Bottom';
 import { LogBox } from 'react-native';
 import About from './About';
 import AboutUser from './AboutUser'
+import WorkExperience from './WorkExperience'
+import PhotoUpload from './PhotoUpload';
+import SocialInfo from './SocialInfo';
+import LiveScreen from './LiveScreen';
 
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
@@ -22,10 +26,14 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen options={{headerShown: false, }}  name="Home" component={Bottom} />
         <Stack.Screen options={{headerShown: false, }}  name="About" component={About} />
+        <Stack.Screen options={{headerShown: false, }}  name="WorkExperience" component={WorkExperience} />
+        <Stack.Screen options={{headerShown: false, }}  name="UploadPhotos" component={PhotoUpload} />
+        <Stack.Screen options={{headerShown: false, }}  name="SocialInfo" component={SocialInfo} />
         <Stack.Screen options={{headerShown: false, }}  name="UserDetails" component={AboutUser} />
         <Stack.Screen options={{headerShown: false, }}  name="WorkoutDetail" component={Screen3} />
         <Stack.Screen options={{headerShown: false, }}  name="WorkoutSelection" component={Screen2} />
         <Stack.Screen options={{headerShown: false, }}  name="FinalWorkout" component={Screen4} />
+        <Stack.Screen options={{headerShown: false, }}  name="LiveScreen" component={LiveScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

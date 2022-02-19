@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Image } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 
 const DATA = [
   {
@@ -33,14 +33,19 @@ const DATA = [
   }, 
 ];
 
-const Item = ({ image, text}) => (
-  <View style={styles.item}>
-      <Image style={styles.image} source={image} />
-      <Text style={styles.text}>{text}</Text>
-  </View>
-);
 
-export default function ClientHistory () {
+
+export default function ClientHistory ({ navigation }) {
+  const Item = ({ image, text}) => (
+    <TouchableOpacity style={styles.item} onPress={
+      ()=>{
+        navigation.navigate('LiveScreen', {image: image, title: text})
+      }
+    }>
+        <Image style={styles.image} source={image} />
+        <Text style={styles.text}>{text}</Text>
+    </TouchableOpacity>
+  );
   const renderItem = ({ item }) => (
     <Item image={item.image} text={item.text} />
   );
