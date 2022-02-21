@@ -1,5 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Text, ImageBackground } from 'react-native';
+import {
+    StackedBarChart,
+    BarChart
+} from 'react-native-chart-kit'
 
 export default function LiveScreen({ navigation, route }) {
     const { image, title } = route.params;
@@ -57,6 +61,35 @@ export default function LiveScreen({ navigation, route }) {
                             <Text style={{ fontWeight: "bold", fontSize: 11, color: "white" }}>9h 33m</Text>
                             <Text style={{ color: "white", fontSize: 11, fontWeight: "100" }}>time</Text>
                         </View>
+                        <StackedBarChart
+                            data={{
+                                
+                                data: [
+                                    [60, 60],
+                                    [30, 30],
+                                ],
+                                barColors: ['#00ADB5', 'aqua'],
+                            }}
+                            width={200}
+                            height={100}
+                            chartConfig={{
+                                backgroundColor: '#1cc910',
+                                backgroundGradientFrom: '#eff3ff',
+                                backgroundGradientTo: '#efefef',
+                                decimalPlaces: 2,
+                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                style: {
+                                    borderRadius: 16,
+                                },
+                            }}
+                            style={{
+                                marginVertical: 8,
+                                borderRadius: 16,
+                                marginTop: 50
+                            }}
+                            withVerticalLabels={false}  
+                                withHorizontalLabels= {false}
+                        />
                     </View>
                 </View>
                 <View style={{ width: 120, height: 120, backgroundColor: "grey", borderRadius: 80, marginLeft: 10, marginTop: 25 }}>
@@ -79,29 +112,29 @@ export default function LiveScreen({ navigation, route }) {
                 </View>
             </View>
             <View style={{ flexDirection: "row" }}>
-                <View style={{ width: 180, height: 95, backgroundColor: "grey", marginTop: 20, marginLeft: 10, borderRadius: 25, elevation: 5 }}>
+                <View style={{ width: 170, height: 95, backgroundColor: "grey", marginTop: 20, marginLeft: 10, borderRadius: 25, elevation: 5 }}>
                     <View style={{ flexDirection: "row" }}>
-                        <Image source={require('./images/run.png')} style={{ marginLeft: 20, height: 15, width: 12, marginTop: 5 }} />
+                        <Image source={require('./images/run.png')} style={{ marginLeft: 8, height: 15, width: 12, marginTop: 5 }} />
                         <View style={{ marginLeft: 10 }}>
                             <Text style={{ fontWeight: "bold", fontSize: 10, color: "white" }}>Running</Text>
                             <Text style={{ fontSize: 10, color: "white" }}>9070m</Text>
                         </View>
                     </View>
-                    <Text style={{ fontSize: 11, marginLeft: 100, marginTop: -27, color: "white" }}>18 Feb 2022</Text>
-                    <Text style={{ fontSize: 12, marginLeft: 110, marginTop: 0, color: "white" }}>55:24 min</Text>
-                    <View style={{ width: 180, height: 15, backgroundColor: "#393E46", marginTop: 8 }}>
+                    <Text style={{ fontSize: 11, marginLeft: 90, marginTop: -27, color: "white" }}>18 Feb 2022</Text>
+                    <Text style={{ fontSize: 12, marginLeft: 100, marginTop: 0, color: "white" }}>55:24 min</Text>
+                    <View style={{ width: 180, height: 5, backgroundColor: "#393E46", marginTop: 8 }}>
 
                     </View>
-                    <Text style={{ color: "#393E46", marginLeft: 4, marginTop:5 }}>
+                    <Text style={{ color: "#393E46", marginLeft: 4, marginTop: 5 }}>
                         Better than yesterday
                     </Text>
                 </View>
 
-                <View style={{ width: 180, height: 120, backgroundColor: "grey", marginTop: 20, marginLeft: 10, borderRadius: 25, elevation: 10 }}>
+                <View style={{ width: 200, height: 120, backgroundColor: "grey", marginTop: 20, marginLeft: 10, borderRadius: 25, elevation: 10 }}>
                     <Text style={{ color: "#00ADB5", fontWeight: "bold", marginLeft: 10, marginTop: 5, fontSize: 15 }}>Monthly Report</Text>
                     <Text style={{ color: "#00ADB5", marginLeft: 10, marginTop: 10, fontSize: 12 }}>task report</Text>
-                    <Text style={{ color: "#00ADB5", fontWeight: "bold", marginLeft: 10, marginTop: 15, fontSize: 15 }} >
-                    33%    59%</Text>
+                    <Text style={{ color: "#00ADB5", fontWeight: "bold", marginLeft: 10, marginTop: 30, fontSize: 15 }} >
+                        33%    59%</Text>
                 </View>
             </View>
         </View>

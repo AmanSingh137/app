@@ -14,7 +14,7 @@ export default function Bottom() {
       <Tab.Navigator screenOptions={
         {
           tabBarActiveTintColor: '#fff',
-          tabBarStyle: {backgroundColor: "transparent", borderTopWidth: 0, elevation: 0, position: 'absolute'}
+          tabBarStyle: {backgroundColor: "#393E36", borderTopWidth: 0, elevation: 0,}
         }}  >
         {/*#1d2229 */}
         <Tab.Screen name="Home" component={Screen} options={{

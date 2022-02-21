@@ -91,10 +91,10 @@ export default function Screen({ navigation }) {
         <TouchableOpacity
           style={{
             backgroundColor: "#00ADB566",
-            width: 300,
+            flex: 1,
             height: 40,
-            marginLeft: 60,
-            alignContent: "center",
+            marginHorizontal: 60,
+            alignItems: "center",
             justifyContent: "center",
             borderRadius: 30,
             shadowColor: "black",
@@ -108,7 +108,6 @@ export default function Screen({ navigation }) {
               color: "white",
               fontWeight: "bold",
               fontSize: 20,
-              marginLeft: 90,
               textShadowColor: "#000",
               textShadowOffset: { width: 1, height: 1 },
               textShadowRadius: 1,
@@ -129,9 +128,9 @@ const styles = StyleSheet.create({
   text: { color: "white", marginTop: 0, marginLeft: 20, fontSize: 20 },
   buttonStyling: {
     backgroundColor: "#00ADB566",
-    width: 300,
+    flex: 1, 
     height: 40,
-    marginLeft: 60,
+    marginHorizontal: 60,
     alignContent: "center",
     justifyContent: "center",
     borderRadius: 30,
