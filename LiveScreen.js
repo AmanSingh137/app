@@ -1,13 +1,47 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, Text, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet, Text, ImageBackground, FlatList } from 'react-native';
 import {
     StackedBarChart,
     BarChart
 } from 'react-native-chart-kit'
+import Chart from './Chart';
+import Graph from './Graph';
 
 export default function LiveScreen({ navigation, route }) {
     const { image, title } = route.params;
-    //console.log(title)
+    const data = [
+        { i1: 20, i2: 40 },
+        { i1: 10, i2: 16 },
+        { i1: 12, i2: 20 },
+        { i1: 32, i2: 64 },
+        { i1: 50, i2: 4 },
+        { i1: 50, i2: 50 },
+        { i1: 50, i2: 25 },
+        { i1: 35, i2: 20 },
+        { i1: 30, i2: 16 },
+        { i1: 15, i2: 12 },
+        { i1: 32, i2: 12 }, { i1: 26, i2: 16 },
+    ]
+    const Item = ({ a1, a2 }) => {
+        //console.log(a1, a2);
+        return <Chart h1={a1} h2={a2} />
+    }
+    const Items = ({ a1 }) => {
+        //console.log(a1, a2);
+        return <Graph h1={a1} />
+    }
+    const renderItems = ({ item }) => {
+        // console.log(item, index)
+        return <View style={{ marginHorizontal: 3 }}>
+            <Items a1={item.i1} />
+        </View>
+    }
+    const renderItem = ({ item }) => {
+        // console.log(item, index)
+        return <View style={{ marginHorizontal: 3 }}>
+            <Item a1={item.i1} a2={item.i2} />
+        </View>
+    }
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: "row", marginTop: 20 }}>
@@ -15,7 +49,7 @@ export default function LiveScreen({ navigation, route }) {
                     <Image source={require('./ImportedIcons/Vector.png')} style={{ marginTop: 50, marginLeft: 20, tintColor: '#00ADB5' }} />
                 </TouchableOpacity>
                 <Text style={{ color: 'white', fontSize: 20, marginLeft: 85, marginTop: 42 }}>{title}</Text>
-                <Image source={image} style={{ height: 60, width: 60, borderRadius: 40, marginLeft: 10, marginTop: 25 }} />
+                <Image source={image} style={{ height: 60, width: 60, borderRadius: 10, marginLeft: 10, marginTop: 25 }} />
                 <TouchableOpacity>
                     <Image source={require('./ImportedIcons/powerButton.png')} style={{ marginLeft: 90, marginTop: 48, tintColor: '#00ADB5' }} />
                 </TouchableOpacity>
@@ -61,35 +95,13 @@ export default function LiveScreen({ navigation, route }) {
                             <Text style={{ fontWeight: "bold", fontSize: 11, color: "white" }}>9h 33m</Text>
                             <Text style={{ color: "white", fontSize: 11, fontWeight: "100" }}>time</Text>
                         </View>
-                        <StackedBarChart
-                            data={{
-                                
-                                data: [
-                                    [60, 60],
-                                    [30, 30],
-                                ],
-                                barColors: ['#00ADB5', 'aqua'],
-                            }}
-                            width={200}
-                            height={100}
-                            chartConfig={{
-                                backgroundColor: '#1cc910',
-                                backgroundGradientFrom: '#eff3ff',
-                                backgroundGradientTo: '#efefef',
-                                decimalPlaces: 2,
-                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                style: {
-                                    borderRadius: 16,
-                                },
-                            }}
-                            style={{
-                                marginVertical: 8,
-                                borderRadius: 16,
-                                marginTop: 50
-                            }}
-                            withVerticalLabels={false}  
-                                withHorizontalLabels= {false}
-                        />
+                        {/* <FlatList horizontal renderItem={renderItem} data={data} style={{backgroundColor: "white"}} /> */}
+                        <View style={{
+                            backgroundColor: "grey", width: 100, marginTop: 40, height: 80, marginHorizontal: -92,
+                            transform: [{ rotate: '180deg' }]
+                        }}>
+                            <FlatList horizontal renderItem={renderItem} data={data} />
+                        </View>
                     </View>
                 </View>
                 <View style={{ width: 120, height: 120, backgroundColor: "grey", borderRadius: 80, marginLeft: 10, marginTop: 25 }}>
@@ -103,10 +115,10 @@ export default function LiveScreen({ navigation, route }) {
                 </View>
                 <View style={{ width: 120, height: 120, backgroundColor: "black", marginLeft: 10, marginTop: 30, borderRadius: 25 }}>
                     <Image source={image} style={{
-                        width: 80, height: 80, alignSelf: "center", marginTop: 15,
+                        width: 60, height: 60, alignSelf: "center", marginTop: 15,
                         borderRadius: 50
                     }} />
-                    <Text style={{ color: "white", marginLeft: 42 }}>
+                    <Text style={{ color: "white", marginLeft: 48, marginTop: 16 }}>
                         XYZ
                     </Text>
                 </View>
@@ -135,6 +147,12 @@ export default function LiveScreen({ navigation, route }) {
                     <Text style={{ color: "#00ADB5", marginLeft: 10, marginTop: 10, fontSize: 12 }}>task report</Text>
                     <Text style={{ color: "#00ADB5", fontWeight: "bold", marginLeft: 10, marginTop: 30, fontSize: 15 }} >
                         33%    59%</Text>
+                    <View style={{
+                        backgroundColor: "grey", width: 100, marginTop: -80, height: 80, marginHorizontal: 92,
+                        transform: [{ rotate: '180deg' }]
+                    }}>
+                        <FlatList horizontal renderItem={renderItems} data={data} />
+                    </View>
                 </View>
             </View>
         </View>
