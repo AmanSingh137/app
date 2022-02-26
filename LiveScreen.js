@@ -138,7 +138,7 @@ export default function LiveScreen({ navigation, route }) {
 
                     </View>
                     <Text style={{ color: "#393E46", marginLeft: 4, marginTop: 5 }}>
-                        Better than yesterday
+                        Better than yesterday and day before yesterday
                     </Text>
                 </View>
 
